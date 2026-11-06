@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Broadcast Work — Kenny Villalobos</title><link rel="stylesheet" href="/styles.css"></head>
+<body class="password-page">
+  <main class="gate">
+    <div class="glitch" aria-hidden="true">KV//ACCESS</div>
+    <form id="login"><input id="password" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password" required><button aria-label="Enter" type="submit">→</button></form>
+    <div class="error" id="error" role="status"></div>
+  </main>
+  <script>
+  const form=document.getElementById('login'), error=document.getElementById('error');
+  form.addEventListener('submit',async e=>{e.preventDefault();error.textContent='';const button=form.querySelector('button');button.disabled=true;
+    try{const r=await fetch('/.netlify/functions/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:document.getElementById('password').value})});
+      const data=await r.json();if(!r.ok)throw new Error(data.error||'Unable to sign in');sessionStorage.setItem('broadcastToken',data.token);location.href='/broadcast/work.html';
+    }catch(err){error.textContent=err.message==='Invalid password'?'Incorrect password. Please try again.':'Access unavailable. Please try again later.';button.disabled=false;}
+  });
+  </script>
+</body></html>
