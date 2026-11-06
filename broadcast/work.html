@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Broadcast Work — Kenny Villalobos</title><link rel="stylesheet" href="/styles.css"></head>
+<body><main class="page-shell">
+<header class="site-header"><a class="small-brand" href="/">KENNY VILLALOBOS</a><nav class="header-nav"><a href="/">Home</a><a href="/#about">About</a></nav></header>
+<div class="eyebrow">Selected projects</div><h1 class="page-title">BROADCAST WORK</h1><div class="date-range">2014 — CURRENT</div>
+<div id="projects" class="timeline"><p class="empty-note">Loading your protected portfolio…</p></div>
+<footer>KENNY VILLALOBOS · BROADCAST WORK</footer>
+</main>
+<script>
+(async()=>{const token=sessionStorage.getItem('broadcastToken');if(!token){location.replace('/broadcast/');return;}
+try{const r=await fetch('/.netlify/functions/broadcast',{headers:{Authorization:'Bearer '+token}});if(!r.ok)throw new Error('Session expired');const data=await r.json();const host=document.getElementById('projects');host.innerHTML='';
+for(const item of data.projects){const section=document.createElement('section');section.className='year-block';const year=document.createElement('h2');year.className='year';year.textContent=item.year;section.appendChild(year);
+if(!item.items.length){const p=document.createElement('p');p.className='empty-note';p.textContent='Projects from this year will be added soon.';section.appendChild(p);}
+for(const project of item.items){const card=document.createElement('article');card.className='project';const thumb=document.createElement('div');thumb.className='thumb';thumb.textContent='Video thumbnail';const info=document.createElement('div');const credit=document.createElement('div');credit.className='credit';credit.textContent=project.credit||'Broadcast';const title=document.createElement('h3');title.textContent=project.title;const desc=document.createElement('p');desc.textContent=project.description||'';info.append(credit,title,desc);card.append(thumb,info);section.appendChild(card);}host.appendChild(section);}
+}catch(e){sessionStorage.removeItem('broadcastToken');location.replace('/broadcast/');}})();
+</script></body></html>
